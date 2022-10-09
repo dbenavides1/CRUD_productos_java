@@ -26,7 +26,7 @@ public class cnxMySql {
         try {
             Class.forName("com.mysql.jdbc.Driver");
                 conectar = DriverManager.getConnection(cadena, usuario, contrasena);
-                JOptionPane.showMessageDialog(null, "Se conectó a la bd mysql");
+                //JOptionPane.showMessageDialog(null, "Se conectó a la bd mysql");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se conectó a la bd, error: "+e.toString());
         }
