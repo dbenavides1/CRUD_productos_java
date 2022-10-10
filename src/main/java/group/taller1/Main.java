@@ -14,11 +14,5 @@ public class Main {
     public static void main(String[] args) {
         FormProductos objetoFormulario = new FormProductos();
         objetoFormulario.setVisible(true);
-        
-        //cnxMySql conexionMySql = new cnxMySql();
-        //conexionMySql.establecerConexion();
-        
-        //cnxPostgreSql conexionPostgreSql = new cnxPostgreSql();
-        //conexionPostgreSql.establecerConexion();
     }
 }

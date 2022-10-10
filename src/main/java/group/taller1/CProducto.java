@@ -10,6 +10,7 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -74,17 +75,7 @@ public class CProducto {
         setCantidadProducto(Integer.parseInt(paramCantidad.getText()));
         setValorProducto(Integer.parseInt(paramValor.getText()));
 
-        //cnxPostgreSql conexionPostgresql = new cnxPostgreSql();
-        //String consulta = "INSERT INTO public.productos(nombre, cantidad, valor_unidad) VALUES (?, ?, ?);";
         try {
-            /*
-            CallableStatement cnx = conexionPostgresql.establecerConexion().prepareCall(consulta);
-            
-            cnx.setString(1, getNombreProducto());
-            cnx.setInt(2, getCantidadProducto());
-            cnx.setLong(3, getValorProducto());
-            cnx.execute();
-             */
             if (this.valorProducto <= 100000) {
                 String consulta = "INSERT INTO public.productos(nombre, cantidad, valor_unidad) VALUES (?, ?, ?);";
                 cnxPostgreSql conexionPostgresql = new cnxPostgreSql();
@@ -111,9 +102,12 @@ public class CProducto {
         }
     }
 
-    public void MostrarProductos(JTable paramTablaProductos) {
+    public void MostrarProductos(JTable paramTablaProductos, JLabel paramCantTotal, JTextField paramValTotal) {
         cnxPostgreSql conexionPostgreSql = new cnxPostgreSql();
         cnxMySql conexionMySql = new cnxMySql();
+        
+        int cantTotal = 0;
+        long valTotal = 0;
 
         DefaultTableModel modelo = new DefaultTableModel();
 
@@ -148,6 +142,9 @@ public class CProducto {
                 datos[2] = pgrs.getString(3);
                 datos[3] = pgrs.getString(4);
                 datos[4] = "PostgreSql";
+                
+                cantTotal = cantTotal + Integer.parseInt(datos[2]);
+                valTotal = valTotal + (Integer.parseInt(datos[2]) * Integer.parseInt(datos[3]));
 
                 modelo.addRow(datos);
             }
@@ -158,11 +155,17 @@ public class CProducto {
                 datos[2] = myrs.getString(3);
                 datos[3] = myrs.getString(4);
                 datos[4] = "MySql";
+                
+                cantTotal = cantTotal + Integer.parseInt(datos[2]);
+                valTotal = valTotal + (Integer.parseInt(datos[2]) * Integer.parseInt(datos[3]));
 
                 modelo.addRow(datos);
             }
 
             paramTablaProductos.setModel(modelo);
+            
+            paramCantTotal.setText("" + cantTotal);
+            paramValTotal.setText("" + valTotal);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pudo mostrar los registros" + e.toString());
         }
@@ -192,18 +195,7 @@ public class CProducto {
         setCantidadProducto(Integer.parseInt(paramCantidad.getText()));
         setValorProducto(Integer.parseInt(paramValor.getText()));
 
-        //cnxPostgreSql conexionPostgresql = new cnxPostgreSql();
-        //String consulta = "UPDATE public.productos SET nombre = ?, cantidad = ?, valor_unidad = ? WHERE id_producto = ?;";
         try {
-            /*
-            CallableStatement cnx = conexionPostgresql.establecerConexion().prepareCall(consulta);
-
-            cnx.setString(1, getNombreProducto());
-            cnx.setInt(2, getCantidadProducto());
-            cnx.setLong(3, getValorProducto());
-            cnx.setInt(4, getIdProducto());
-            cnx.execute();
-             */
             if (this.valorProducto <= 100000) {
                 String consulta = "UPDATE public.productos SET nombre = ?, cantidad = ?, valor_unidad = ? WHERE id_producto = ?;";
                 cnxPostgreSql conexionPostgresql = new cnxPostgreSql();
@@ -237,15 +229,7 @@ public class CProducto {
         setIdProducto(Integer.parseInt(paramIdProducto.getText()));
         setBaseDatos(paramBaseDatos.getText());
 
-        //cnxPostgreSql conexionPostgresql = new cnxPostgreSql();
-        //String consulta = "DELETE FROM public.productos WHERE id_producto = ?;";
         try {
-            /*
-            CallableStatement cnx = conexionPostgresql.establecerConexion().prepareCall(consulta);
-
-            cnx.setInt(1, getIdProducto());
-            cnx.execute();
-             */
             if ("PostgreSql".equals(this.baseDatos)) {
                 String consulta = "DELETE FROM public.productos WHERE id_producto = ?;";
                 cnxPostgreSql conexionPostgresql = new cnxPostgreSql();

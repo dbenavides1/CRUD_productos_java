@@ -18,7 +18,7 @@ public class FormProductos extends javax.swing.JFrame {
         
         //Mostramos los productos:
         CProducto objetoProducto = new CProducto();
-        objetoProducto.MostrarProductos(tbListaProductos);
+        objetoProducto.MostrarProductos(tbListaProductos, LblCantTotal, txtValTotal);
     }
 
     /**
@@ -48,6 +48,10 @@ public class FormProductos extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbListaProductos = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        txtValTotal = new javax.swing.JTextField();
+        LblCantTotal = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -195,13 +199,28 @@ public class FormProductos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbListaProductos);
 
+        jLabel6.setText("Cantidad de Productos:");
+
+        LblCantTotal.setText("0");
+
+        jLabel8.setText("Valor Total de Inventario:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LblCantTotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtValTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -209,6 +228,12 @@ public class FormProductos extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtValTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LblCantTotal)
+                    .addComponent(jLabel8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -239,7 +264,7 @@ public class FormProductos extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         CProducto objetoProducto = new CProducto();
         objetoProducto.InsertarProducto(txtNombre, txtCantidad, txtValor);
-        objetoProducto.MostrarProductos(tbListaProductos);
+        objetoProducto.MostrarProductos(tbListaProductos, LblCantTotal, txtValTotal);
         LimpiarCampos();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -251,21 +276,29 @@ public class FormProductos extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         CProducto objetoProducto = new CProducto();
         objetoProducto.modificarProducto(txtId, txtNombre, txtCantidad, txtValor);
-        objetoProducto.MostrarProductos(tbListaProductos);
+        objetoProducto.MostrarProductos(tbListaProductos, LblCantTotal, txtValTotal);
         LimpiarCampos();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         CProducto objetoProducto = new CProducto();
         objetoProducto.EliminarProducto(txtId, txtBaseDatos);
-        objetoProducto.MostrarProductos(tbListaProductos);
+        objetoProducto.MostrarProductos(tbListaProductos, LblCantTotal, txtValTotal);
         LimpiarCampos();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    public void LimpiarCampos() {
+        txtId.setText("");
+        txtNombre.setText("");
+        txtCantidad.setText("");
+        txtValor.setText("");
+        txtBaseDatos.setText("");
+    }
+    
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         LimpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -300,16 +333,9 @@ public class FormProductos extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void LimpiarCampos() {
-        txtId.setText("");
-        txtNombre.setText("");
-        txtCantidad.setText("");
-        txtValor.setText("");
-        txtBaseDatos.setText("");
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LblCantTotal;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
@@ -319,6 +345,8 @@ public class FormProductos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -327,6 +355,7 @@ public class FormProductos extends javax.swing.JFrame {
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtValTotal;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }
